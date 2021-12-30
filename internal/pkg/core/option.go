@@ -2,6 +2,7 @@ package core
 
 import "goframework/internal/proposal"
 
+// Option options 模式 https://mp.weixin.qq.com/s/cbZ05jLlp8XtpYBzF80YTA
 type Option func(*option)
 
 type option struct {
@@ -14,7 +15,6 @@ type option struct {
 	alertNotify       proposal.NotifyHandler
 	recordHandler     proposal.RecordHandler
 }
-
 
 // WithDisablePProf 禁用 pprof
 func WithDisablePProf() Option {

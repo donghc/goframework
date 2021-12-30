@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"go.uber.org/zap"
 	"goframework/configs"
@@ -10,6 +11,7 @@ import (
 	"goframework/pkg/shutdown"
 	"goframework/pkg/timeutil"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -28,8 +30,8 @@ func main() {
 	}()
 
 	//初始化 http 服务
-	s, err := router.NewHTTPServer(accessLogger, nil)
-	if err!=nil{
+	s, err := router.NewHTTPServer(accessLogger)
+	if err != nil {
 		panic(err)
 	}
 
@@ -44,12 +46,15 @@ func main() {
 		}
 	}()
 
-
-
 	//优雅关闭服务
 	shutdown.NewHook().Close(
 		//关闭http server
 		func() {
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+			defer cancel()
+			if err := server.Shutdown(ctx); err != nil {
+				accessLogger.Error("server shutdown err", zap.Error(err))
+			}
 
 		},
 

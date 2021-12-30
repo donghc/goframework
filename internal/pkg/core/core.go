@@ -15,7 +15,6 @@ import (
 	"goframework/internal/code"
 	"goframework/internal/proposal"
 	"goframework/pkg/browser"
-	"goframework/pkg/color"
 	"goframework/pkg/env"
 	"goframework/pkg/errors"
 	"goframework/pkg/trace"
@@ -89,7 +88,7 @@ func New(logger *zap.Logger, options ...Option) (Mux, error) {
 	mux := &mux{
 		engine: gin.New(),
 	}
-	fmt.Println(color.Blue(_UI))
+	//fmt.Println(color.Blue(_UI))
 	//设置静态资源文件
 	mux.engine.StaticFS("assets", http.FS(assets.Bootstrap))
 	//加载html页面
@@ -112,7 +111,7 @@ func New(logger *zap.Logger, options ...Option) (Mux, error) {
 		"/favicon.ico":              true,
 		"/system/health":            true,
 	}
-
+	//加载options选项
 	opt := new(option)
 	for _, f := range options {
 		f(opt)
@@ -192,7 +191,6 @@ func New(logger *zap.Logger, options ...Option) (Mux, error) {
 				businessCodeMsg string
 				abortErr        error
 				traceId         string
-				graphResponse   interface{}
 			)
 
 			if ct := context.Trace(); ct != nil {
@@ -318,11 +316,6 @@ func New(logger *zap.Logger, options ...Option) (Mux, error) {
 
 			if response != nil {
 				responseBody = response
-			}
-
-			graphResponse = context.getGraphPayload()
-			if graphResponse != nil {
-				responseBody = graphResponse
 			}
 
 			t.WithResponse(&trace.Response{

@@ -14,9 +14,9 @@ import (
 
 type resource struct {
 	mux    core.Mux
-	logger       *zap.Logger
-	db           mysql.Repo
-	cache        redis.Repo
+	logger *zap.Logger
+	db     mysql.Repo
+	cache  redis.Repo
 }
 
 type Server struct {
@@ -25,7 +25,7 @@ type Server struct {
 	Cache redis.Repo
 }
 
-func NewHTTPServer(logger *zap.Logger, cronLogger *zap.Logger) (*Server, error) {
+func NewHTTPServer(logger *zap.Logger) (*Server, error) {
 	if logger == nil {
 		return nil, errors.New("logger required")
 	}
@@ -69,7 +69,7 @@ func NewHTTPServer(logger *zap.Logger, cronLogger *zap.Logger) (*Server, error) 
 		panic(err)
 	}
 
-	r.mux=mux
+	r.mux = mux
 	// 设置 API 路由
 	setApiRouter(r)
 
