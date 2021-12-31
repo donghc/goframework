@@ -68,6 +68,8 @@ func NewHTTPServer(logger *zap.Logger) (*Server, error) {
 	}
 
 	r.mux = mux
+	// 设置 Render 路由
+	setRenderRouter(r)
 	// 设置 API 路由
 	setApiRouter(r)
 

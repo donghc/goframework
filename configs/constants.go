@@ -3,6 +3,11 @@ package configs
 import "time"
 
 const (
+	// MinGoVersion 最小 Go 版本	,go:embed bootstrap
+	MinGoVersion = 1.16
+	// ProjectVersion 项目版本
+	ProjectVersion = "v1.2.8"
+
 	// PrometheusNameSpace 普罗米修斯命名空间
 	PrometheusNameSpace = "framework"
 	// ProjectName 项目名称
@@ -12,11 +17,8 @@ const (
 	// ProjectAccessLogFile 项目访问后，日志存放的文件
 	ProjectAccessLogFile = "./logs/" + ProjectName + "-access.log"
 
-
 	// ProjectInstallMark 项目安装完成标识
 	ProjectInstallMark = "INSTALL.lock"
-
-
 
 	// HeaderLoginToken 登录验证 Token，Header 中传递的参数
 	HeaderLoginToken = "Token"
