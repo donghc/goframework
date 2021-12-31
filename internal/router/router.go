@@ -52,8 +52,6 @@ func NewHTTPServer(logger *zap.Logger) (*Server, error) {
 				logger.Fatal("new redis err", zap.Error(err))
 			}
 			r.cache = redisRepo
-
-			//初始化 cron
 		}
 	}
 
