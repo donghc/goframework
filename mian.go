@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	//初始化 access log
+	//初始化 access log,
 	accessLogger, err := logger.NewJSONLogger(
 		logger.WithField("domain", fmt.Sprintf("%s[%s]", configs.ProjectName, env.Active().Value())),
 		logger.WithTimeLayout(timeutil.CSTLayout),
