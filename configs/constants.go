@@ -12,6 +12,8 @@ const (
 	PrometheusNameSpace = "framework"
 	// ProjectName 项目名称
 	ProjectName = "go-framework"
+	// ProjectDomain 项目域名
+	ProjectDomain = "http://127.0.0.1"
 	// ProjectPort 项目端口
 	ProjectPort = ":9999"
 	// ProjectAccessLogFile 项目访问后，日志存放的文件

@@ -17,7 +17,10 @@ func Open(uri string) error {
 	if !ok {
 		return fmt.Errorf("don't know how to open things on %s platform", runtime.GOOS)
 	}
-
+	if runtime.GOOS == "windows" {
+		cmd := exec.Command("cmd", "/C", run, uri)
+		return cmd.Start()
+	}
 	cmd := exec.Command(run, uri)
 	return cmd.Start()
 }

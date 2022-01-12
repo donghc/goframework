@@ -166,7 +166,8 @@ func New(logger *zap.Logger, options ...Option) (Mux, error) {
 	}
 
 	if opt.enableOpenBrowser != "" {
-		_ = browser.Open(opt.enableOpenBrowser)
+		err := browser.Open(opt.enableOpenBrowser)
+		fmt.Println("", err)
 	}
 
 	// recover两次，防止处理时发生panic，尤其是在OnPanicNotify中。

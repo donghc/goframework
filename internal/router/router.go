@@ -34,7 +34,7 @@ func NewHTTPServer(logger *zap.Logger) (*Server, error) {
 
 	r := new(resource)
 	r.logger = logger
-	openBrowserUri := configs.ProjectName + configs.ProjectPort
+	openBrowserUri := configs.ProjectDomain + configs.ProjectPort
 
 	_, ok := file.IsExists(configs.ProjectInstallMark)
 	{
@@ -55,6 +55,7 @@ func NewHTTPServer(logger *zap.Logger) (*Server, error) {
 			}
 			r.cache = redisRepo
 		}
+
 	}
 
 	mux, err := core.New(logger,
@@ -70,6 +71,7 @@ func NewHTTPServer(logger *zap.Logger) (*Server, error) {
 	}
 
 	r.mux = mux
+	r.interceptors = interceptor.New(logger, r.cache, r.db)
 	// 设置 Render 路由
 	setRenderRouter(r)
 	// 设置 API 路由
