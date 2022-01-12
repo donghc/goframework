@@ -3,6 +3,8 @@ package admin
 import (
 	"goframework/internal/pkg/core"
 	"goframework/internal/repository/mysql"
+	"goframework/internal/repository/mysql/admin_menu"
+	"goframework/internal/repository/mysql/menu"
 )
 
 type SearchMyMenuData struct {

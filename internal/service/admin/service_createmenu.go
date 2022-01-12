@@ -4,6 +4,7 @@ import (
 	"github.com/spf13/cast"
 	"goframework/internal/pkg/core"
 	"goframework/internal/repository/mysql"
+	"goframework/internal/repository/mysql/admin_menu"
 	"strings"
 )
 

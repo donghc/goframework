@@ -8,15 +8,17 @@ import (
 	"goframework/internal/pkg/core"
 	"goframework/internal/repository/mysql"
 	"goframework/internal/repository/redis"
+	"goframework/internal/router/interceptor"
 	"goframework/pkg/errors"
 	"goframework/pkg/file"
 )
 
 type resource struct {
-	mux    core.Mux
-	logger *zap.Logger
-	db     mysql.Repo
-	cache  redis.Repo
+	mux          core.Mux
+	logger       *zap.Logger
+	db           mysql.Repo
+	cache        redis.Repo
+	interceptors interceptor.Interceptor
 }
 
 type Server struct {
