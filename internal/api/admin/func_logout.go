@@ -1,6 +1,13 @@
 package admin
 
-import "goframework/internal/pkg/core"
+import (
+	"goframework/configs"
+	"goframework/internal/code"
+	"goframework/internal/pkg/core"
+	"goframework/internal/repository/redis"
+	"goframework/pkg/errors"
+	"net/http"
+)
 
 type logoutResponse struct {
 	Username string `json:"username"` // 用户账号
@@ -18,6 +25,18 @@ type logoutResponse struct {
 // @Security LoginToken
 func (h *handler) Logout() core.HandlerFunc {
 	return func(c core.Context) {
+		res := new(logoutResponse)
+		res.Username = c.SessionUserInfo().UserName
 
+		if !h.cache.Del(configs.RedisKeyPrefixLoginUser+c.GetHeader(configs.HeaderLoginToken), redis.WithTrace(c.Trace())) {
+			c.AbortWithError(core.Error(
+				http.StatusBadRequest,
+				code.AdminLogOutError,
+				code.Text(code.AdminLogOutError)).WithError(errors.New("cache del err")),
+			)
+			return
+		}
+
+		c.Payload(res)
 	}
 }
